@@ -13,7 +13,6 @@ public class FlightChecker implements Checker {
 
     @Override
     public List<Flight> findDepartureToTheCurrentTime(List<Flight> flightList) {
-        System.out.println("\nFlights with departure up to the current time:");
 
         List<Flight> flights = flightList.stream().filter(flight -> flight.getSegments().
                         stream().anyMatch(s -> s.getDepartureDate().isBefore(LocalDateTime.now()))).
@@ -23,7 +22,6 @@ public class FlightChecker implements Checker {
 
     @Override
     public List<Flight> findArrivalBeforeDeparture(List<Flight> flightList) {
-        System.out.println("\nFlights with arrival before departure:");
 
         List<Flight> flights = flightList.stream().filter(flight -> flight.getSegments().
                         stream().anyMatch(s -> s.getArrivalDate().isBefore(s.getDepartureDate()))).
@@ -33,7 +31,6 @@ public class FlightChecker implements Checker {
 
     @Override
     public List<Flight> findLongOnEarth(List<Flight> flightList) {
-        System.out.println("\nFlights with time spent on the ground for more than 2 hours:");
 
         List<Flight> flights = new ArrayList<>();
 
@@ -59,8 +56,13 @@ public class FlightChecker implements Checker {
 
 
     public void start(List<Flight> flightList) {
+        System.out.println("\nFlights with departure up to the current time:");
         writeResult(findDepartureToTheCurrentTime(flightList));
+
+        System.out.println("\nFlights with arrival before departure:");
         writeResult(findArrivalBeforeDeparture(flightList));
+
+        System.out.println("\nFlights with time spent on the ground for more than 2 hours:");
         writeResult(findLongOnEarth(flightList));
     }
 }
